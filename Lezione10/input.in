@@ -1,0 +1,9 @@
+0
+100
+2000
+20
+
+Input >> migrate        0-> with migration, other->without migration
+Input >> n_population;
+Input >> nstep;
+Input >> n_migration;

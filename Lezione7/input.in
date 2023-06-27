@@ -1,0 +1,3 @@
+0
+
+ChooseInput >> InChoose; 0=input.solid 1=input.liquid 2=input.gas

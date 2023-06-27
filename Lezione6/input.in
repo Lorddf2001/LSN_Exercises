@@ -1,0 +1,17 @@
+2.0
+50
+1.0
+0.02
+0
+100000
+20
+10000
+
+  ReadInput >> temp;
+  ReadInput >> nspin;
+  ReadInput >> J;
+  ReadInput >> h;
+  ReadInput >> metro;
+  ReadInput >> nstep for equilibrium
+  ReadInput >> nblk;
+  ReadInput >> nstep;

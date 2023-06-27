@@ -1,0 +1,21 @@
+1
+0
+100000
+0.8
+108
+1.1
+2.2
+0.1
+500000
+1
+
+  ReadInput >> iNVET; 0=MD(NVE) 1=MC(NVT)
+  ReadInput >> restart;
+  ReadInput >> steps to reach equilibrium;
+  ReadInput >> temp;
+  ReadInput >> npart;
+  ReadInput >> rho;
+  ReadInput >> rcut;
+  ReadInput >> delta;   (MD 0.0005  MC 0.1)
+  ReadInput >> nblk;
+  ReadInput >> nstep;

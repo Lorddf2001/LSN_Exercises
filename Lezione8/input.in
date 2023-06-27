@@ -1,0 +1,20 @@
+0.2
+0.8
+1
+100
+10000
+0.95
+2.5
+1e-10
+
+ReadInput >> initial mu;
+ReadInput >> initial sigma;
+ReadInput >> delta MC;
+ReadInput >> nblk;
+ReadInput >> nstep;
+
+ReadInput >> alfa SA;
+ReadInput >> initial T;
+ReadInput >> final T;
+
+Psi = exp( - (x-mu)*(x-mu)/(2.0 * sigma*sigma) ) + exp( - (x+mu)*(x+mu)/(2.0 * sigma*sigma) )
