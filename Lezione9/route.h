@@ -59,6 +59,12 @@ public:
         return m_route;
     }
 
+    void updateroute(vector<int> route){
+        for(int i = 0; i < m_ncity; i++){
+            m_route[i] = route[i];
+        }
+    }
+
     int getcityindex(int index){
         return m_route[index];
     }

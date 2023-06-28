@@ -50,7 +50,9 @@ public:
         int father_index, mother_index;
         for(int i = 0; i < m_npopulation/2; i++){        //n/2 couples
             father_index = selection();
+//            cout << "selection 1 " << father_index << endl;
             mother_index = selection();
+//            cout << "selection 2 " << mother_index << endl;
             crossover(father_index, mother_index);
         }
         sorting();  
@@ -79,21 +81,51 @@ public:
     }
 
     void crossover (int father, int mother) {
-        int cut = rnd.Discrete(1, m_map.getncity() - 2);
-
         // Create children as a copy of the parents
         Route child1 = m_pop[father];
         Route child2 = m_pop[mother];
-        // Resize child's route to the cutting point
-        child1.getroute().resize(cut);
-        child2.getroute().resize(cut);
-        
-        // Perform crossover by combining the parent routes up to the cutting point
-        for(int i = 0; i < m_map.getncity(); i ++){    // Add cities from the parent if not already present in child
-            if(! child1.check_city(m_pop[father].getcityindex(i)) ) child1.getroute().push_back(m_pop[father].getcityindex(i));     
-            if(! child2.check_city(m_pop[mother].getcityindex(i)) ) child2.getroute().push_back(m_pop[mother].getcityindex(i));
-        }
+        // crossover probability
+        if( rnd.Rannyu() < 0.90){
+            int support1 = 0;
+            int support2 = 0;
+            int cut = rnd.Discrete(1, m_map.getncity() - 2);    // Randomly select a cutting point
 
+            // Resize children's route up to the cutting point
+            vector<int> child1_route;
+            vector<int> child2_route;
+            child1_route = child1.getroute();
+            child1_route.resize(cut);
+            child2_route = child2.getroute();
+            child2_route.resize(cut);
+
+            // Perform crossover by combining the parent routes up to the cutting point
+            for(int i = 0; i < m_map.getncity(); i ++){    // Iterate over cities in the parent routes
+                support1 = 0;
+                support2 = 0;
+                // Check if the city from the mother parent already exists in child1's route
+                for(int j = 0; j < child1_route.size() ; j++){
+                    if( m_pop[mother].getcityindex(i) == child1_route[j] ){
+                        support1 ++;
+                        break;
+                    }
+                }
+                // If city doesn't exist, add it to child1's route
+                if (support1 == 0 ) child1_route.push_back(m_pop[mother].getcityindex(i));
+
+                // Check if the city from the father parent already exists in child2's route
+                for(int j = 0; j < child2_route.size(); j++){
+                    if( m_pop[father].getcityindex(i) == child2_route[j] ){
+                        support2 ++;
+                        break;
+                    }
+                }
+                // If city doesn't exist, add it to child2's route
+                if (support2 == 0 ) child2_route.push_back(m_pop[father].getcityindex(i));
+            }
+            // Update children's route
+            child1.updateroute(child1_route);
+            child2.updateroute(child2_route);
+        }
         // Add the modified child individuals to the population
         m_pop.push_back(child1);
         m_pop.push_back(child2);
